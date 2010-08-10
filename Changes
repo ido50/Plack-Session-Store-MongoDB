@@ -1,4 +1,6 @@
 Revision history for Plack-Session-Store-MongoDB
 
 {{$NEXT}}
+
+0.1       2010-08-10 20:42:20 Asia/Jerusalem
 	- initial release
