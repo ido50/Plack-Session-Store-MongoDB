@@ -82,7 +82,14 @@ Fetches a session object from the database.
 sub fetch {
 	my ($self, $session_id) = @_;
 
-	$self->db->get_collection($self->coll_name)->find_one({ _id => $session_id });
+	my $session_obj = $self->db->get_collection($self->coll_name)->find_one({ _id => $session_id });
+
+	if ($session_obj) {
+		delete $session_obj->{_id};
+		return $session_obj;
+	}
+	
+	return; 
 }
 
 =head2 store( $session_id, \%session_obj )
@@ -97,7 +104,7 @@ sub store {
 
 	$session_obj->{_id} = $session_id;
 
-	$self->db->get_collection($self->coll_name)->insert($session_obj, { safe => 1 })
+	$self->db->get_collection($self->coll_name)->update({ _id => $session_id }, $session_obj, { upsert => 1, safe => 1 })
 		|| croak "Failed inserting session object to MongoDB database: ".$self->db->last_error;
 }
 
@@ -158,8 +165,6 @@ Daisuke Maki, author of L<Plack::Session::Store::DBI>, on which this
 module is based.
 
 Tests adapted from the L<Plack::Middleware::Session> distribution.
-
-=back
 
 =head1 LICENSE AND COPYRIGHT
 
