@@ -7,7 +7,7 @@ use Plack::Request;
 use Plack::Session::State::Cookie;
 use Plack::Session::Store::MongoDB;
 
-use t::lib::TestSessionHash;
+use t::TestSessionHash;
 
 my $conn;
 eval { $conn = MongoDB::Connection->new(host => 'localhost', port => 27017); };
@@ -15,7 +15,7 @@ eval { $conn = MongoDB::Connection->new(host => 'localhost', port => 27017); };
 SKIP: {
 	skip "MongoDB needs to be running for this test.", 1 if $@;
 
-	t::lib::TestSessionHash::run_all_tests(
+	t::TestSessionHash::run_all_tests(
 		store  => Plack::Session::Store::MongoDB->new(db_name => 'plack_test_sessions'),
 		state  => Plack::Session::State->new,
 		env_cb => sub {

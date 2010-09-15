@@ -1,4 +1,4 @@
-package t::lib::TestSession;
+package t::TestSession;
 use strict;
 use warnings;
 
