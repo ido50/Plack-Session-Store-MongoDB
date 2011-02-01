@@ -32,13 +32,19 @@ DESCRIPTION
 METHODS
   new( %params )
     Creates a new instance of this module. Requires a hash of parameters
-    containing 'db_name' with the name of the MongoDB database to use, and
-    optionally a 'host' parameter with the hostname of the server where the
-    MongoDB daemon is running (will default to 'localhost'), a 'port'
-    parameter defining the port where the MongoDB daemon is listening (will
-    default to 27017, the default MongoDB port), and a 'coll_name' parameter
-    with the name of the collection in which sessions will be stored (will
-    default to 'sessions').
+    containing 'session_db_name' with the name of the MongoDB database to
+    use and any options available by MongoDB::Connection, most probably
+    'host' (the hostname of the server where the MongoDB daemon is running,
+    defaults to 'localhost') and 'port' (the port where the MongoDB daemon
+    is listening, defaults to 27017, the default MongoDB port). You can also
+    optionally pass the 'coll_name' parameter, denoting the name of the
+    collection in which sessions will be stored (will default to
+    'sessions').
+
+    NOTE: in previous versions, the 'session_db_name' option was called
+    'db_name'. This has been changed since 'db_name' is a
+    MongoDB::Connection option that might differ from you session database,
+    and you should be able to pass both if you need to.
 
   fetch( $session_id )
     Fetches a session object from the database.

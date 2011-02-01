@@ -1,6 +1,10 @@
 Revision history for Plack-Session-Store-MongoDB
 
 {{$NEXT}}
+	- Now allows passing options to MongoDB::Connection's new() method
+	- BACKWORDS COMPATIBILITY BROKEN: the 'db_name' option for new()
+	  is changed to 'session_db_name'. Read the note in the new()
+	  method's documentation.
 
 0.2       2010-09-15 17:05:19 Asia/Jerusalem
 	- Fixed bug causing test modules to be listed as prereqs, thus causing tests to fail

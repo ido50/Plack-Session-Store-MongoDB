@@ -10,13 +10,13 @@ use Plack::Session::Store::MongoDB;
 use t::TestSessionHash;
 
 my $conn;
-eval { $conn = MongoDB::Connection->new(host => 'localhost', port => 27017); };
+eval { $conn = MongoDB::Connection->new(); };
 
 SKIP: {
 	skip "MongoDB needs to be running for this test.", 1 if $@;
 
 	t::TestSessionHash::run_all_tests(
-		store  => Plack::Session::Store::MongoDB->new(db_name => 'plack_test_sessions'),
+		store  => Plack::Session::Store::MongoDB->new(session_db_name => 'plack_test_sessions'),
 		state  => Plack::Session::State->new,
 		env_cb => sub {
 			open my $in, '<', \do { my $d };
