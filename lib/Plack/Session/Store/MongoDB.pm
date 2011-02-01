@@ -27,7 +27,7 @@ Plack::Session::Store::MongoDB - MongoDB based session store for Plack apps.
 	builder {
 		enable 'Session',
 		store => Plack::Session::Store::MongoDB->new(
-			db_name => 'myapp',
+			session_db_name => 'myapp',
 			coll_name => 'myapp_sessions',	# defaults to 'session'
 			host => 'mongodb.myhost.com',	# defaults to 'localhost'
 			port => 27017			# this is the default
