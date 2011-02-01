@@ -1,6 +1,8 @@
 Revision history for Plack-Session-Store-MongoDB
 
 {{$NEXT}}
+
+0.3       2011-02-02 01:10:02 Asia/Jerusalem
 	- Now allows passing options to MongoDB::Connection's new() method
 	- BACKWORDS COMPATIBILITY BROKEN: the 'db_name' option for new()
 	  is changed to 'session_db_name'. Read the note in the new()
