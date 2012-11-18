@@ -1,6 +1,8 @@
 Revision history for Plack-Session-Store-MongoDB
 
 {{$NEXT}}
+
+0.4       2012-11-19 01:33:51 Asia/Jerusalem
 	- Now allows passing a MongoDB::Connection object instead of having
 	  the module creating one by itself (older behavior still available
 	  though)
