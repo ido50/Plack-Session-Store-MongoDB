@@ -13,3 +13,5 @@
 ^cover_db$
 ^pod2htm.*\.tmp$
 ^Plack-Session-Store-MongoDB-.*$
+^MYMETA\.yml$
+^MYMETA\.json$
