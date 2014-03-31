@@ -13,7 +13,10 @@ my $conn;
 eval { $conn = MongoDB::Connection->new(); };
 
 SKIP: {
-	skip "MongoDB needs to be running for this test.", 1 if $@;
+	if ($@) {
+		diag("MongoDB needs to be running for this test.");
+		skip("MongoDB needs to be running for this test.", 1);
+	}
 
 	t::TestSessionHash::run_all_tests(
 		store  => Plack::Session::Store::MongoDB->new(session_db_name => 'plack_test_sessions', conn => $conn),

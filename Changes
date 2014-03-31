@@ -1,6 +1,8 @@
 Revision history for Plack-Session-Store-MongoDB
 
 {{$NEXT}}
+	- Checking if MongoDB version is v0.502.0 or higher and using
+	  MongoDB::MongoClient instead of MongoDB::Connection if so.
 
 0.4       2012-11-19 01:33:51 Asia/Jerusalem
 	- Now allows passing a MongoDB::Connection object instead of having

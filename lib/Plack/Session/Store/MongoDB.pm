@@ -2,15 +2,16 @@ package Plack::Session::Store::MongoDB;
 
 # ABSTRACT: MongoDB based session store for Plack apps.
 
-our $VERSION = "0.4";
+our $VERSION = "1.000000";
 $VERSION = eval $VERSION;
 
 use warnings;
 use strict;
 use parent 'Plack::Session::Store';
-use MongoDB;
-use Carp;
+use version;
 
+use Carp;
+use MongoDB;
 use Plack::Util::Accessor qw/coll_name db/;
 
 =head1 NAME
@@ -91,11 +92,15 @@ sub new {
 	my $self = {};
 	$self->{coll_name} = delete $params{coll_name} || 'sessions';
 
+	my $isa = version->parse($MongoDB::VERSION) < v0.502.0 ?
+		'MongoDB::Connection' :
+			'MongoDB::MongoClient';
+
 	# initiate connection to the MongoDB backend
-	if ($params{conn} && $params{conn}->isa('MongoDB::Connection')) {
+	if ($params{conn} && $params{conn}->isa($isa)) {
 		$self->{db} = $params{conn}->get_database($db_name);
 	} else {
-		$self->{db} = MongoDB::Connection->new(%params)->get_database($db_name);
+		$self->{db} = $isa->new(%params)->get_database($db_name);
 	}
 
 	return bless $self, $class;
@@ -196,7 +201,7 @@ Tests adapted from the L<Plack::Middleware::Session> distribution.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010-2012 Ido Perlmuter.
+Copyright 2010-2014 Ido Perlmuter.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
